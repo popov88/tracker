@@ -1,1 +1,34 @@
-<h1>Hi pal!</h1>
+<h1>你好, Pal!</h1>
+<%= render 'friends/lookup' %>
+<% if @friendships.size > 0 %>
+  <table class="table table-stripped">
+    <thead>
+      <tr>
+        <th colspan="3" class="page-header">
+          <h2>我的朋友</h2>
+        </th>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @friendships.each do |friend| %>
+        <tr>
+          <td><%= friend.full_name %></td>
+          <td><%= friend.email %></td>
+          <td>
+            <%= link_to '看 Profile', user_path(friend), class:"btn btn-primary btn-xs", id: "btn-white-txt" %>
+            <%= link_to 'Remove 朋友', friendship_path(friend), :method => :delete, :data => { :confirm => "等， 什么？" }, :class => "btn btn-xs btn-danger", id: "btn-white-txt" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="row col-lg-12">
+    <p class="lead">forever_alone.jpg</p>
+  </div>
+<% end %>
